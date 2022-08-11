@@ -17,8 +17,8 @@ visibility: PRIVATE
   ```
 - [ ] Add client artifacts to the `artifacts` subdirectory, using the instructions
   in the final section below.
-- [ ] Remove this section
 - [ ] Invite the client team members to this repo
+- [ ] Remove this section
 
 #  Audit Workspace _of_ Informal Systems ⨯ Celestia
 

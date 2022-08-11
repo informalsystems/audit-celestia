@@ -1,3 +1,6 @@
 [submodule ".audit-report"]
 	path = .audit-report
 	url = git@github.com:informalsystems/audit-reports.git
+[submodule "2022/Q3/artifacts/celestia-core"]
+	path = 2022/Q3/artifacts/celestia-core
+	url = https://github.com/celestiaorg/celestia-core
