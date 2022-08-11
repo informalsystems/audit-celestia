@@ -4,11 +4,11 @@ visibility: PRIVATE
 
 # TODO: Repo Initialization
 
-- [ ] Fetch the report tooling by running `git submodule update --init --recursive`
+- [X] Fetch the report tooling by running `git submodule update --init --recursive`
 - [ ] Rename the directory `QN`, replacing `N` with the current quarter
 - [ ] Rename the directory `YYYY`, replacing `YYYY` with the current year
-- [ ] Make the following replacements in this file:
-  - `$CLIENT$` -> clients name
+- [ ] Make the following replacements iCelestian this file:
+  - $CLIENT$ -> clients name
   - `$client-url$` -> client's home page
 - [ ] Initialize the report skeleton
   ```sh
@@ -20,11 +20,11 @@ visibility: PRIVATE
 - [ ] Remove this section
 - [ ] Invite the client team members to this repo
 
-#  Audit Workspace _of_ Informal Systems ⨯ $CLIENT$
+#  Audit Workspace _of_ Informal Systems ⨯ Celestia
 
 This repository is a workspace for [Informal Systems](https://informal.systems/)
-and [$CLIENT$]($client-url$) to collaborate on auditing the software developed
-by $CLIENT$.
+and [Celestia](https://celestia.org) to collaborate on auditing the software developed
+by Celestia.
 
 ## Usage and organization
 
@@ -39,13 +39,13 @@ These artifacts include:
 ### To clone just the artifacts Informal created during the audit
 
 ``` sh
-git clone git@github.com:informalsystems/audit-$CLIENT$.git
+git clone git@github.com:informalsystems/audit-Celestia.git
 ```
 
 ### To clone all artifacts, including Interlay's source code at the relevant commits
 
 ``` sh
-git clone --recurse-submodules git@github.com:informalsystems/audit-$CLIENT$.git
+git clone --recurse-submodules git@github.com:informalsystems/audit-Celestia.git
 ```
 
 
@@ -60,7 +60,7 @@ git submodule update --init --recursive
 From within an the `artifacts` subdirectory of an audit:
 
 ```sh
-git submodule add https://github.com/$CLIENT$/$PROJECT$
+git submodule add https://github.com/Celestia/$PROJECT$
 cd $PROJECT$
 git checkout $TAG$
 ```
