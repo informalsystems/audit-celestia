@@ -7,7 +7,7 @@ visibility: PRIVATE
 - [X] Fetch the report tooling by running `git submodule update --init --recursive`
 - [X] Rename the directory `QN`, replacing `N` with the current quarter
 - [X] Rename the directory `YYYY`, replacing `YYYY` with the current year
-- [X] Make the following replacements iCelestian this file:
+- [X] Make the following replacements in this file:
   - $CLIENT$ -> clients name
   - `$client-url$` -> client's home page
 - [X] Initialize the report skeleton
