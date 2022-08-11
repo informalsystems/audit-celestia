@@ -5,12 +5,12 @@ visibility: PRIVATE
 # TODO: Repo Initialization
 
 - [X] Fetch the report tooling by running `git submodule update --init --recursive`
-- [ ] Rename the directory `QN`, replacing `N` with the current quarter
-- [ ] Rename the directory `YYYY`, replacing `YYYY` with the current year
-- [ ] Make the following replacements iCelestian this file:
+- [X] Rename the directory `QN`, replacing `N` with the current quarter
+- [X] Rename the directory `YYYY`, replacing `YYYY` with the current year
+- [X] Make the following replacements iCelestian this file:
   - $CLIENT$ -> clients name
   - `$client-url$` -> client's home page
-- [ ] Initialize the report skeleton
+- [X] Initialize the report skeleton
   ```sh
   cd YYYY/QN/report
   make init
