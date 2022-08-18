@@ -2,24 +2,6 @@
 visibility: PRIVATE
 ---
 
-# TODO: Repo Initialization
-
-- [X] Fetch the report tooling by running `git submodule update --init --recursive`
-- [X] Rename the directory `QN`, replacing `N` with the current quarter
-- [X] Rename the directory `YYYY`, replacing `YYYY` with the current year
-- [X] Make the following replacements in this file:
-  - $CLIENT$ -> clients name
-  - `$client-url$` -> client's home page
-- [X] Initialize the report skeleton
-  ```sh
-  cd YYYY/QN/report
-  make init
-  ```
-- [ ] Add client artifacts to the `artifacts` subdirectory, using the instructions
-  in the final section below.
-- [ ] Invite the client team members to this repo
-- [ ] Remove this section
-
 #  Audit Workspace _of_ Informal Systems ⨯ Celestia
 
 This repository is a workspace for [Informal Systems](https://informal.systems/)
