@@ -1,5 +1,5 @@
 ---
-visibility: PRIVATE
+visibility: PUBLIC
 ---
 
 #  Audit Workspace _of_ Informal Systems ⨯ Celestia
