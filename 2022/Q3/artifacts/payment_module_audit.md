@@ -75,7 +75,17 @@ func splitMessage(rawData []byte, nid namespace.ID) NamespacedShares {
 
 ### PrepareProposal
 
-> TODO
+| Method | Source code | Invoked by | Brief description | UTs | Issues found | 
+| ------ | ----------- | ---------- | ----------------- | --- | ------------ |
+| `parsedTxs` | [parsedTxs()](https://github.com/celestiaorg/celestia-app/blob/e088d61fcb6579b4bc797deefd2ceff7601aa079/app/parse_txs.go#L63) | `PrepareProposal` | Parse TXs in proposed block. | [estimate_square_size_test.go](https://github.com/celestiaorg/celestia-app/blob/e088d61fcb6579b4bc797deefd2ceff7601aa079/app/estimate_square_size_test.go) | - [MsgWirePayForData messages are validate twice by the proposer](https://github.com/informalsystems/audit-celestia/issues/10) |
+| `estimateSquareSize` | [estimateSquareSize()](https://github.com/celestiaorg/celestia-app/blob/e088d61fcb6579b4bc797deefd2ceff7601aa079/app/estimate_square_size.go#L101) | `PrepareProposal` | Estimate square size using the data in the proposed block. | [Test_estimateSquareSize](https://github.com/celestiaorg/celestia-app/blob/e088d61fcb6579b4bc797deefd2ceff7601aa079/app/estimate_square_size_test.go#L18) | - [nextPowerOfTwo vs. NextHigherPowerOf2](https://github.com/informalsystems/audit-celestia/issues/15) <br /> -  |
+| `rawShareCount` | [rawShareCount()](https://github.com/celestiaorg/celestia-app/blob/e088d61fcb6579b4bc797deefd2ceff7601aa079/app/estimate_square_size.go#L145) | `estimateSquareSize` | Calculates the number of shares needed by the block data. | NA | - [[Optimization] MsgSharesUsed requires remainder operation](https://github.com/informalsystems/audit-celestia/issues/11) <br /> - [The number of TX shares is incremented twice](https://github.com/informalsystems/audit-celestia/issues/12) <br /> - [Unit length missing from estimating txBytes in rawShareCount](https://github.com/informalsystems/audit-celestia/issues/13) <br /> - [Number of share estimated by rawShareCount is inaccurate](https://github.com/informalsystems/audit-celestia/issues/14) |
+| `FitsInSquare` | [FitsInSquare](https://github.com/celestiaorg/celestia-app/blob/e088d61fcb6579b4bc797deefd2ceff7601aa079/pkg/shares/non_interactive_defaults.go#L7) | `estimateSquareSize` | Uses the non interactive default rules to see if messages of some lengths will fit in a square of squareSize starting at share index cursor. | [TestFitsInSquare](https://github.com/celestiaorg/celestia-app/blob/e088d61fcb6579b4bc797deefd2ceff7601aa079/pkg/shares/non_interactive_defaults_test.go#L47) | - [FitsInSquare is incorrect for edge case](https://github.com/informalsystems/audit-celestia/issues/16) |
+
+
+TODO: Next https://github.com/celestiaorg/celestia-app/blob/e088d61fcb6579b4bc797deefd2ceff7601aa079/app/prepare_proposal.go#L31
+
+
 
 ### ProcessProposal
 
