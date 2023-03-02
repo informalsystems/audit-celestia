@@ -10,3 +10,6 @@
 [submodule "2023/Q1/artifacts/nmt"]
 	path = 2023/Q1/artifacts/nmt
 	url = https://github.com/celestiaorg/nmt
+[submodule "2023/Q1/artifacts/celestia-app"]
+	path = 2023/Q1/artifacts/celestia-app
+	url = git@github.com:celestiaorg/celestia-app.git
