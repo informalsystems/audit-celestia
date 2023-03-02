@@ -7,3 +7,6 @@
 [submodule "2022/Q3/artifacts/celestia-app"]
 	path = 2022/Q3/artifacts/celestia-app
 	url = https://github.com/celestiaorg/celestia-app
+[submodule "2023/Q1/artifacts/nmt"]
+	path = 2023/Q1/artifacts/nmt
+	url = https://github.com/celestiaorg/nmt
