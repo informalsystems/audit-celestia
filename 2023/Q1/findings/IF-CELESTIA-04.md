@@ -5,7 +5,7 @@ finding:
   severity: ???
   impact: ???
   exploitability: ???
-  type: Protocol
+  type: Protocol and Documentation
   status: ???
   issue: https://github.com/celestiaorg/nmt/issues/121
 ---
