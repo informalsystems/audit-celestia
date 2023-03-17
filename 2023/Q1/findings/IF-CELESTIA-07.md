@@ -14,7 +14,7 @@ finding:
 
 ## Description
 
-Function `validateSiblingsNamespaceOrder` only checks if the maximum namespace id of the left child is less or equal to the minimum of the right minimum namespace id. It does not check the of leftMinNs, leftMaxNs, rightMinNs and rightMaxNs among children nodes.
+Function [validateSiblingsNamespaceOrder](https://github.com/celestiaorg/nmt/blob/4276d172f18c87ebdd18da0cc4b758f0dd164118/hasher.go#L177-L194))  only checks if the maximum namespace id of the left child is less or equal to the minimum of the right minimum namespace id. It does not check the of leftMinNs, leftMaxNs, rightMinNs and rightMaxNs among children nodes.
 
 Evan if the ordering of namespaces will guaranteed by the Push function it would be wise to check the whole ordering for the sake of completeness.
 
