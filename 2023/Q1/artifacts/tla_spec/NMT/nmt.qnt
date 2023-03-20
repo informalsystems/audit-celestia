@@ -7,7 +7,7 @@ module nmt {
 
     type NAMESPACE_HASH = {minNS: int, maxNS: int, hash: WORD}
     
-    type PROOF = {start: int, end: int, supporting_hashes: List[WORD]}
+    type PROOF = {start: int, end: int, supporting_hashes: List[NAMESPACE_HASH]}
 
     type DATA = str
 
@@ -107,7 +107,7 @@ module nmt {
                     if (binaryLeftEndDistance[i] == 1) 
                         accMap.put(
                             length(binaryLeftEndDistance) - 1 - i, 
-                            proof.supporting_hashes[size(accMap.keys())]
+                            proof.supporting_hashes[size(accMap.keys())].hash
                             ) 
                     else 
                         accMap
@@ -119,7 +119,7 @@ module nmt {
                 if (binaryRightEndDistance[i] == 1) 
                     accMap.put(
                         i, 
-                        proof.supporting_hashes[sum(binaryLeftEndDistance) + size(accMap.keys())]
+                        proof.supporting_hashes[sum(binaryLeftEndDistance) + size(accMap.keys())].hash
                         ) 
                 else 
                     accMap
@@ -127,13 +127,10 @@ module nmt {
         val leavesUsed = sum(binaryLeftEndDistance)+sum(binaryRightEndDistance)
 
         val remainingSupportNodes = 
-            if (leavesUsed == length(proof.supporting_hashes))
-                []
-            else
-                proof.supporting_hashes.slice(
-                    leavesUsed,
-                    length(proof.supporting_hashes)
-                )
+            if (leavesUsed == length(proof.supporting_hashes)) 
+                [] 
+            else 
+                proof.supporting_hashes.slice(leavesUsed,length(proof.supporting_hashes))
         
         val treeHeight = if (proof.end == 1) 1 else length(binary(proof.end)) + 1
         val leafHashes: List[WORD] = range(proof.start, proof.end).foldl(
@@ -141,8 +138,7 @@ module nmt {
             (acc, i) => acc.append([leaves[i-proof.start].value])
             )
         
-        val propagatedHashes = 
-            range(0,treeHeight).foldl(
+        val propagatedHashes = range(0,treeHeight).foldl(
                 leafHashes,
                 (acc, i) => pairwiseHash( 
                     mergeWithLeftAndRight(
@@ -152,12 +148,12 @@ module nmt {
                     )
                 )
             )  
-            
+
         val partialTreeRootHash = pairwiseHash(propagatedHashes)[0]    
 
         val calculatedRootHash = remainingSupportNodes.foldl(
             partialTreeRootHash,
-            (acc, levelHashes) => acc.append(levelHashes[0])
+            (acc, levelHashes) => acc.append(levelHashes.hash[0])
         )
         
         calculatedRootHash == rootHash
