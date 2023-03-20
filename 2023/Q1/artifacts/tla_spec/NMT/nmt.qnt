@@ -74,7 +74,10 @@ module nmt {
                     if (i % 2 == 0)
                         acc
                     else
-                        acc.concat([Hash(dataList[i-1].concat(dataList[i]))])
+                        acc.concat([Hash(concat(
+                                dataList[i-1],
+                                dataList[i]
+                                ))])
                 }
             )
         
@@ -177,7 +180,7 @@ module nmt {
         // computation.
         val calculatedRootHash = remainingSupportNodes.foldl(
             partialTreeRootHash,
-            (acc, levelHashes) => acc.append(levelHashes.hash[0])
+            (acc, levelHashes) => Hash(acc.append(levelHashes.hash[0]))
         )
         
         calculatedRootHash == rootHash
