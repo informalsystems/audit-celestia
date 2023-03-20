@@ -33,22 +33,21 @@ module nmt {
                 }
             )
 
+    
+    def SensibleStartEnd(start: int, end: int, leaves: List[DATA_ITEM]) : bool =
+        and {
+            start >= 0,
+            end <= length(leaves),
+            start < end
+        }
+
         
 
-
-   
-   
     
-    
-    
-    
-    // TODO: this is a stub
-    def SensibleStartEnd(start: int, end: int) : bool =
-        true
-
-    // TODO: this is a stub
-    def CorrectNamespaceValue(namespaceId: int, dataIndices: List[int]) : bool =
-        true
+    def CorrectNamespaceValue(proof: PROOF, namespaceId: int, leaves: List[DATA_ITEM]) : bool =
+        val elementsWithWrongId = leaves.select(x => x.namespaceId != namespaceId)        
+        length(elementsWithWrongId) == 0
+        
 
     def getFullTreeSize(lastNode : int) : int =
        if (lastNode == 0)
@@ -89,16 +88,13 @@ module nmt {
             default
 
     def mergeWithLeftAndRight(left: WORD, middle: List[WORD], right: WORD) : List[WORD] =
-       if (length(left) == 0 and length(right) == 0)
-            middle
-        else if (length(left) == 0)
-            middle.concat([right])
-        else if (length(right) == 0)
-            [left].concat(middle)
-        else
-            [left].concat(middle).concat([right])
-
-    // todo: this is a stub
+        val allTogether = concat(
+                concat([left], middle), 
+                [right]
+                )
+        allTogether.select(x => x != [])
+       
+    
     def MerkleInclusion(proof: PROOF, rootHash: WORD, leaves: List[DATA_ITEM]) : bool =
         
         val fullTreeSize = getFullTreeSize(proof.end - 1)
@@ -136,6 +132,7 @@ module nmt {
                 else 
                     accMap
             )
+
         val numLeavesUsed = sum(binaryLeftEndDistance)+sum(binaryRightEndDistance)
 
         // after the left and right maps are created, the remaining supporting hashes 
@@ -189,12 +186,12 @@ module nmt {
     def Completeness(proof: PROOF, namespaceId: int) : bool = 
         true
 
-    def verifyInclusionProof(proof: PROOF, rootHash: WORD, namespaceId: int) : bool = {
+    def verifyInclusionProof(proof: PROOF, rootHash: WORD, namespaceId: int, leaves: List[DATA_ITEM]) : bool = {
         val dataIndices : List[int] = range(proof.start, proof.end)
         and {            
-            SensibleStartEnd(proof.start, proof.end),            
-            CorrectNamespaceValue(namespaceId, dataIndices),
-            // MerkleInclusion(proof, rootHash),
+            SensibleStartEnd(proof.start, proof.end, leaves),            
+            CorrectNamespaceValue(proof, namespaceId, leaves),
+            MerkleInclusion(proof, rootHash, leaves),
             Completeness(proof, namespaceId)
         }
     }
