@@ -84,6 +84,16 @@ module nmt {
         else
             default
 
+    def mergeWithLeftAndRight(left: WORD, middle: List[WORD], right: WORD) : List[WORD] =
+       if (length(left) == 0 and length(right) == 0)
+            middle
+        else if (length(left) == 0)
+            middle.concat([right])
+        else if (length(right) == 0)
+            [left].concat(middle)
+        else
+            [left].concat(middle).concat([right])
+
     // todo: this is a stub
     def MerkleInclusion(proof: PROOF, rootHash: WORD, leaves: List[DATA_ITEM]) : bool =
         
@@ -115,6 +125,7 @@ module nmt {
                     accMap
             )
         val leavesUsed = sum(binaryLeftEndDistance)+sum(binaryRightEndDistance)
+
         val remainingSupportNodes = 
             if (leavesUsed == length(proof.supporting_hashes))
                 []
@@ -134,11 +145,14 @@ module nmt {
             range(0,treeHeight).foldl(
                 leafHashes,
                 (acc, i) => pairwiseHash( 
-                    [getWithDefault(leftMap, i, [])]
-                    .concat(acc)
-                    .concat([getWithDefault(rightMap, i, [])])
+                    mergeWithLeftAndRight(
+                        getWithDefault(leftMap, i, []),
+                        acc,
+                        getWithDefault(rightMap, i, [])
+                    )
                 )
-            )    
+            )  
+            
         val partialTreeRootHash = pairwiseHash(propagatedHashes)[0]    
 
         val calculatedRootHash = remainingSupportNodes.foldl(
