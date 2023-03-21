@@ -95,7 +95,7 @@ module nmt {
         allTogether.select(x => x != [])
        
     
-    def MerkleInclusion(proof: PROOF, rootHash: WORD, leaves: List[DATA_ITEM]) : bool =
+    def MerkleRangeHash(proof: PROOF, leaves: List[DATA_ITEM]) : WORD =
         
         val fullTreeSize = getFullTreeSize(proof.end - 1)
         val binaryLeftEndDistance = binary(proof.start)
@@ -180,19 +180,19 @@ module nmt {
             (acc, levelHashes) => Hash(acc.append(levelHashes.hash[0]))
         )
         
-        calculatedRootHash == rootHash
+        calculatedRootHash
     
     // TODO: this is a stub
     def Completeness(proof: PROOF, namespaceId: int) : bool = 
         true
 
-    def verifyInclusionProof(proof: PROOF, rootHash: WORD, namespaceId: int, leaves: List[DATA_ITEM]) : bool = {
+    def verifyInclusionProof(proof: PROOF, rootHash: NAMESPACE_HASH, namespaceId: int, leaves: List[DATA_ITEM]) : bool = {
         val dataIndices : List[int] = range(proof.start, proof.end)
         and {            
             SensibleStartEnd(proof.start, proof.end, leaves),            
-            CorrectNamespaceValue(proof, namespaceId, leaves),
-            MerkleInclusion(proof, rootHash, leaves),
-            Completeness(proof, namespaceId)
+            CorrectNamespaceValue(proof, namespaceId, leaves),            
+            Completeness(proof, namespaceId),
+            rootHash.hash == MerkleRangeHash(proof, leaves)
         }
     }
     
