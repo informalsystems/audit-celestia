@@ -36,8 +36,7 @@ module nmt {
     
     def SensibleStartEnd(start: int, end: int, leaves: List[DATA_ITEM]) : bool =
         and {
-            start >= 0,
-            end <= length(leaves),
+            start >= 0,            
             start < end
         }
 
@@ -134,6 +133,7 @@ module nmt {
             )
 
         val numLeavesUsed = sum(binaryLeftEndDistance)+sum(binaryRightEndDistance)
+        
 
         // after the left and right maps are created, the remaining supporting hashes 
         // are the ones that are not used. They are necessarily on the right side of the leaf range
@@ -150,9 +150,9 @@ module nmt {
 
         // a list of hashes of the leaves in the [start, end) range
         val leafHashes: List[WORD] = 
-            range(proof.start, proof.end).foldl(
+            leaves.foldl(
                 [],
-                (acc, i) => acc.append([leaves[i-proof.start].value])
+                (acc, leaf) => acc.append([leaf.value])
                 )
         
         val propagatedHashes : List[WORD] = 
@@ -181,10 +181,17 @@ module nmt {
         )
         
         calculatedRootHash
-    
-    // TODO: this is a stub
+
+
     def Completeness(proof: PROOF, namespaceId: int) : bool = 
-        true
+        val allSupportingNamespaceIds = 
+            proof.supporting_hashes.foldl(
+                Set(),
+                (acc, el) => union(acc, el.minNS.to(el.maxNS))
+            )
+        
+        not(allSupportingNamespaceIds.contains(namespaceId))
+
 
     def verifyInclusionProof(proof: PROOF, rootHash: NAMESPACE_HASH, namespaceId: int, leaves: List[DATA_ITEM]) : bool = {
         val dataIndices : List[int] = range(proof.start, proof.end)
