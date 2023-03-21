@@ -1,23 +1,9 @@
-module nmt {
+module basics{
 
-    // ASSUMPTION: each tree is full and complete (2^n leaves at the bottom level)
-    
-
+    type BINARY = List[int]
     // hashes will be of type WORD
     type WORD = List[str]
 
-    type NAMESPACE_HASH = {minNS: int, maxNS: int, hash: WORD}
-    
-    type PROOF = {start: int, end: int, supporting_hashes: List[NAMESPACE_HASH]}
-
-    type DATA = str
-
-    type DATA_ITEM  = {value: DATA, namespaceId: int}
-
-    type BINARY = List[int]
-
-    // var leaves: List[DATA_ITEM]
-    
     def binary(n: int) : BINARY =
         if (n == 0)
             [0]
@@ -32,8 +18,44 @@ module nmt {
                         acc
                 }
             )
+    def getFullTreeSize(lastNode : int) : int =
+       if (lastNode == 0)
+            1
+        else
+            2^length(binary(lastNode))
+    
+    def sum(list: List[int]) : int =
+        list.foldl(0, (acc, i) => acc + i)
 
     
+        
+    def Hash(data: WORD) : WORD =
+        data
+
+    def getWithDefault(mapX: int -> WORD, key: int, default: WORD) : WORD =
+        if (mapX.keys().contains(key))
+            mapX.get(key)
+        else
+            default
+    }
+
+module nmt {
+    import basics.*
+
+    // ASSUMPTION: each tree is full and complete (2^n leaves at the bottom level)
+    
+
+    
+
+    type NAMESPACE_HASH = {minNS: int, maxNS: int, hash: WORD}
+    
+    type PROOF = {start: int, end: int, supporting_hashes: List[NAMESPACE_HASH]}
+
+    type DATA = str
+
+    type DATA_ITEM  = {value: DATA, namespaceId: int}
+
+       
     def SensibleStartEnd(start: int, end: int, leaves: List[DATA_ITEM]) : bool =
         and {
             start >= 0,            
@@ -48,19 +70,7 @@ module nmt {
         length(elementsWithWrongId) == 0
         
 
-    def getFullTreeSize(lastNode : int) : int =
-       if (lastNode == 0)
-            1
-        else
-            2^length(binary(lastNode))
     
-    def sum(list: List[int]) : int =
-        list.foldl(0, (acc, i) => acc + i)
-
-    
-        
-    def Hash(data: WORD) : WORD =
-        data
 
     def pairwiseHash(dataList: List[WORD]) : List[WORD] =
         if (length(dataList) == 1)
@@ -80,11 +90,8 @@ module nmt {
             )
         
 
-    def getWithDefault(mapX: int -> WORD, key: int, default: WORD) : WORD =
-        if (mapX.keys().contains(key))
-            mapX.get(key)
-        else
-            default
+    
+    
 
     def mergeWithLeftAndRight(left: WORD, middle: List[WORD], right: WORD) : List[WORD] =
         val allTogether = concat(
