@@ -21,7 +21,7 @@ In contrast to when called from `VerifyInclusion`, `verifyLeafHashes` will not b
 
 
 ## Problem Scenarios
-`verifyLeafHashes` function will panic  when called over an empty proof.
+`verifyLeafHashes` function will panic when called over an empty proof.
 
 
 ## Recommendation
