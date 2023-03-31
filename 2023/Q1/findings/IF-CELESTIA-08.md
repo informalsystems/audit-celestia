@@ -7,7 +7,7 @@ finding:
   exploitability: ???
   type: ???
   status: In progress
-  issue: https://github.com/celestiaorg/nmt/issues/129
+  issue: https://github.com/celestiaorg/nmt/issues/130
 ---
 
 
